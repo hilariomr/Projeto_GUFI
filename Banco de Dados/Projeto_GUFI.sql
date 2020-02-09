@@ -101,6 +101,32 @@ ON Evento.IdInstituicao = Instituicao.IdInstituicao;
 
 --LISTAR APENAS OS EVENTOS QUE SÃO PÚBLICOS (NOME EVENTO, TIPO, DATA, PUBLICO OU PRIVADO, DESCRICAO, DADOS DA INSTITUICAO)
 
+SELECT Evento.NomeEvento, TipoEvento.TituloTipoEvento as Tipo, Evento.DataEvento, Evento.AcessoLivre as TipoAcesso, Evento.Descricao, Instituicao.CNPJ, Instituicao.NomeFantasia, Instituicao.Endereco
+FROM Evento
+INNER JOIN TipoEvento
+ON TipoEvento.IdTipoEvento = Evento.IdTipoEvento
+INNER JOIN Instituicao
+ON Evento.IdInstituicao = Instituicao.IdInstituicao
+WHERE Evento.AcessoLivre = 1;
+
+-- LISTAR TODOS OS EVENTOS QUE UM DETERMINADO USUÁRIO PARTICIPA (NOME EVENTO, TIPO, DATA, PUBLICO OU PRIVADO, DESCRICAO, DADOS DA INSTITUICAO, DADOS DO USUARIO)
+
+SELECT Evento.NomeEvento, TipoEvento.TituloTipoEvento as Tipo, Evento.DataEvento, Evento.AcessoLivre as TipoAcesso, Evento.Descricao, Instituicao.CNPJ, Instituicao.NomeFantasia, Instituicao.Endereco,
+Usuario.NomeUsuario as Nome, Usuario.Email, Usuario.Senha, Usuario.Genero, Usuario.DataNascimento, Presenca.Situacao
+FROM Evento
+INNER JOIN TipoEvento
+ON TipoEvento.IdTipoEvento = Evento.IdTipoEvento
+INNER JOIN Instituicao
+ON Evento.IdInstituicao = Instituicao.IdInstituicao
+INNER JOIN Presenca
+ON Presenca.IdPresenca = Evento.IdEvento
+INNER JOIN Usuario
+ON Usuario.IdUsuario = Presenca.IdUsuario
+WHERE Presenca.IdUsuario = 2;
+
+
+
+
 
 
 
